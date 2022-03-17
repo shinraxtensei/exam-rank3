@@ -1,6 +1,6 @@
 #include <unistd.h>
 #include <stdio.h>
-
+# include<stdarg.h>
 int ft_putchar(char c)
 {
     write(1,&c,1);
@@ -47,4 +47,34 @@ void	ft_putbase(unsigned long hexa, int *len)
 		ft_putbase(hexa / 16, len);
 		ft_putbase(hexa % 16, len);
 	}
+}
+
+void    ft_write_format(char format ,void *arg ,int *len)
+{
+    if (format == 's')
+        ft_putstr((char *)arg , len);
+    else if (format == 'd')
+        ft_putnbr((long)arg , len);
+    else if (format == 'x')
+        ft_putbase((unsigned long)arg , len);
+
+}
+int ft_printf(char *str, ...)
+{
+    int len = 0;
+    int i = 0;
+    va_list lst;
+    va_start(lst, str);
+    while (str[i])
+    {
+        if(str[i] == '%')
+        {
+            i++;
+            ft_write_format(str[i] , va_arg(lst, void *),&len);
+        }
+        else len += ft_putchar(str[i]);
+    i++;
+    }
+    va_end(lst);
+    return len;
 }
