@@ -10,6 +10,8 @@ int ft_putchar(char c)
 void ft_putstr(char *str, int *len)
 {
     int i = 0;
+    if (!str)
+        return(ft_putstr("(null)",len));
     while (*str)
         *len += ft_putchar(*str++);
 }

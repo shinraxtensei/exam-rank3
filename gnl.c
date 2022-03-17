@@ -31,3 +31,8 @@ char *gnl(int fd)
     return (ft_strdup(line));
 }
 #include <stdio.h>
+
+int main ()
+{
+    gnl(1);
+}
